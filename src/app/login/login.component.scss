@@ -1,0 +1,31 @@
+.fullpage{
+    background-color: rgb(223, 252, 185);
+    height: 800px;
+    padding-top: 80px;
+    padding-left: 2%;
+}
+.loginform{
+    background-color: pink;
+    text-align: center;
+    padding: 40px;
+    border-radius: 10px;
+    width: 100%;
+    margin: 6% auto;
+}
+.loginform div{
+    padding: 10px;
+}
+.loginform label{
+    padding-right: 10px;
+    font-weight: bold;
+}
+.login_head{
+    border-bottom: 1px solid black;
+    padding-bottom: 30px;
+}
+.login_head span{
+    padding: 10px;
+    font-weight: bolder;
+    font-size: 40px;
+}
+
