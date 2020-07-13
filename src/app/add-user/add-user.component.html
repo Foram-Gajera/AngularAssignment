@@ -1,0 +1,71 @@
+<h2 class="text-center text-info m-4">{{createForm.get('id').value===0 ?'Create':'Update'}} User</h2>
+<div class="p-4 container">
+<form class="border p-5" [formGroup]="createForm" (ngSubmit)="onSubmit()">
+    <div class="form-group row">
+        <div class="col-3">
+            <label>Name</label>
+        </div>
+        <div class="col-9">
+            <input class="form-control" id="name" type="text" name="name" formControlName="name">
+            <div *ngIf="(submitted || createForm.controls.name.touched) && createForm.controls.name.errors">
+                <span *ngIf="createForm.controls.name.errors?.required" class="text-danger">Name is Required.</span>
+                <span *ngIf="createForm.controls.name.errors?.minlength" class="text-danger">Name must be at least 3 characters long.</span>
+            </div>
+        </div>  
+    </div>
+    <div class="form-group row">
+        <div class="col-3">
+            <label>Email</label>
+        </div>
+        <div class="col-9">
+            <input class="form-control" id="email" type="text" name="email" formControlName="email">
+            <div *ngIf="(submitted || createForm.controls.email.touched) && createForm.controls.email.errors">
+                <span *ngIf="createForm.controls.email.errors?.required" class="text-danger">Email is Required.</span>
+                <!-- <span *ngIf="createForm.controls.name.errors?.minlength" class="text-danger">Name must be at least 3 characters long.</span> -->
+            </div>
+        </div>  
+    </div>
+    <div class="form-group row">
+        <div class="col-3">
+            <label>Password</label>
+        </div>
+        <div class="col-9">
+            <div class="input-group">
+            <input class="form-control" id="password"  [type]="fieldTextType ? 'text' : 'password'" name="password" formControlName="password">
+            <div class="input-group-append float-right">
+                <span class="input-group-text">
+                  <i
+                    class="fa"
+                    [ngClass]="{
+                      'fa-eye-slash': !fieldTextType,
+                      'fa-eye': fieldTextType
+                    }"
+                    (click)="toggleFieldTextType()"
+                  ></i>
+                </span>
+              </div>
+            </div>
+            <div *ngIf="(submitted || createForm.controls.password.touched) && createForm.controls.password.errors">
+                <span *ngIf="createForm.controls.password.errors?.required" class="text-danger">Password is Required.</span>
+                <!-- <span *ngIf="createForm.controls.name.errors?.minlength" class="text-danger">Name must be at least 3 characters long.</span> -->
+            </div>
+        </div>  
+    </div>
+    <div class="form-group row">
+        <div class="col-3">
+            
+        </div>
+        <div class="col-9">
+            <button type="submit" [disabled]="createForm.invalid" class="btn" ngClass='btn-info'>
+                {{createForm.get('id').value===0 ?'Create':'Update'}}
+            </button> &nbsp;
+            <button type="button" routerLink="/user" class="btn btn-success">
+                Back to List
+            </button>   
+        </div>  
+    </div>
+    
+
+    
+</form>
+</div>

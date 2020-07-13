@@ -1,1 +1,78 @@
-<p>user works!</p>
+
+<div class="m-4">
+   <a class="float-right btn btn-primary text-white mb-2" routerLink="/addUser">
+    Create New User
+   </a>
+    <table datatable [dtOptions]="dtOptions"  class="table table-striped table-bordered" cellspacing="0" width="80%">
+        <thead>
+        <tr>
+          <th>No.</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Password</th>
+          <th>Operation</th>
+        </tr>
+        </thead>
+         <tbody>
+            <tr *ngFor="let user of lstnewusers; let i=index"> 
+                <td>{{i+1}}</td>
+                <td>{{user.name}}</td>
+                <td>{{user.email}}</td>
+                <td>{{user.password}}</td>
+                <td>
+                  <!-- [routerLink]="['/addUser/',user.id]" -->
+                    <button class="btn btn-success" (click)="edit(user.id)">Edit</button>&nbsp;
+                    <button class="btn btn-danger" (click)="delete(user.id)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+      </table>
+
+      <h1 class="text-info text-center mt-5"> Angular material Datatable</h1>
+
+
+      <div fxLayout fxLayoutAlign="center center" >
+        <mat-form-field fxFlex="60%">
+         
+          <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Search">
+        </mat-form-field>
+       </div> 
+
+      <table width="100%" mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8">
+      
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+          <td mat-cell *matCellDef="let user"> {{user.name}} </td>
+        </ng-container>
+      
+        <!-- Weight Column -->
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+          <td mat-cell *matCellDef="let user"> {{user.email}} </td>
+        </ng-container>
+      
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="password">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Password </th>
+          <td mat-cell *matCellDef="let user"> {{user.password}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+          <td mat-cell *matCellDef="let user">  
+            <button class="btn btn-success" (click)="edit(user.id)">Edit</button>&nbsp;
+            <button class="btn btn-danger" (click)="delete(user.id)">Delete</button> 
+          </td>
+        </ng-container>
+      
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      <!-- Angular 8 pagination -->
+      <mat-paginator [pageSize]="5" showFirstLastButtons></mat-paginator>
+      <!-- <mat-paginator [pageSize]="5" ></mat-paginator> -->
+      
+
+      
+</div>

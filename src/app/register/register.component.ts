@@ -4,6 +4,8 @@ import { FormBuilder, Validators, FormGroup, FormArray } from '@angular/forms';
 import { forbiddenNameValidator } from '../shared/usernamevalidator';
 import { PasswordValidator } from '../shared/passwordvalidator';
 import { RegistrationService } from '../services/registration.service';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -14,22 +16,8 @@ export class RegisterComponent implements OnInit {
 
   registrationForm: FormGroup;
 
-  categories = ['Employee', 'trainee'];
-
   get username(){
     return this.registrationForm.get('username');
-  }
-
-  get phone(){
-    return this.registrationForm.get('phone');
-  }
-
-  get alternetphone() {
-    return this.registrationForm.get('alternetphone') as FormArray;
-  }
-
-  addAlternetPhone(){
-    this.alternetphone.push(this.fb.control(''));
   }
 
   get email(){
@@ -44,10 +32,6 @@ export class RegisterComponent implements OnInit {
     return this.registrationForm.get('cpassword');
   }
 
-  get shift(){
-    return this.registrationForm.get('shift');
-  }
-
   // registerationForm = new FormGroup({
   //   username: new FormControl('Foram'),
   //   email: new FormControl(''),
@@ -58,39 +42,34 @@ export class RegisterComponent implements OnInit {
   // });
 
 
-  constructor(private fb: FormBuilder, private registrationService: RegistrationService) { }
+  constructor(private fb: FormBuilder, private registrationService: RegistrationService,
+              private http: HttpClient, private router: Router) { }
 
   ngOnInit(): void {
     this.registrationForm = this.fb.group({
       username: ['', [Validators.required, Validators.minLength(3), forbiddenNameValidator(/admin/)]],
-      phone: ['', [Validators.required, Validators.pattern]],
-      alternetphone: this.fb.array([]),
+      email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.pattern]],
       cpassword: ['', [Validators.required, Validators.pattern]],
-      category: ['', [Validators.required]],
-      shift: ['', Validators.required],
-      emailUpdates: false,
-      email: ['', [Validators.required, Validators.pattern]],
     }, { validators: PasswordValidator });
 
-    this.registrationForm.get('emailUpdates').valueChanges
-    .subscribe(checkValue => {
-      const email = this.registrationForm.get('email');
-      if (checkValue){
-        email.setValidators(Validators.required);
-      }
-      else{
-        email.clearValidators();
-      }
-      email.updateValueAndValidity();
-    });
+    // this.registrationForm.get('emailUpdates').valueChanges
+    // .subscribe(checkValue => {
+    //   const email = this.registrationForm.get('email');
+    //   if (checkValue){
+    //     email.setValidators(Validators.required);
+    //   }
+    //   else{
+    //     email.clearValidators();
+    //   }
+    //   email.updateValueAndValidity();
+    // });
   }
 
   loadApiData(){
     this.registrationForm.patchValue({
-      username: 'foram',
-      phone: '9586234714',
-      email: 'sdg@sdf.dfg',
+      username: 'foramgajera',
+      email: 'foramgajera@gmail.com',
       password: '123456789',
       cpassword: '123456789'
     });
@@ -101,8 +80,21 @@ export class RegisterComponent implements OnInit {
     console.log(this.registrationForm.valid);
     this.registrationService.register(this.registrationForm.value)
     .subscribe(
-      response => console.log('Success!' , response),
-      error => console.log('Error!' , error)
+      response =>
+      {
+        if (response){
+          if (response.succeded){
+            console.log('Success!' , response);
+            alert('register successfully!');
+          }
+          else{
+            console.log(response.errors[0].description);
+            alert(response.errors[0].description);
+          }
+        }
+      },
+      error => console.log('error!', error)
     );
+    this.router.navigate(['/home']);
   }
 }
