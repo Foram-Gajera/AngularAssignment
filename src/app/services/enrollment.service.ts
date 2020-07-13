@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { User } from '../shared/user';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import { NgForm } from '@angular/forms';
 
 
 
@@ -11,12 +11,12 @@ import { throwError } from 'rxjs';
 })
 export class EnrollmentService {
 
-  url = 'http://localhost:9000/enroll';
+  url = 'https://localhost:44308/api/AdminUser/Login';
 
   constructor(private http: HttpClient) { }
 
-  enroll(user: User){
-    return this.http.post<any>(this.url, user)
+  enroll(formData: NgForm){
+    return this.http.post<any>(this.url, formData)
     .pipe(catchError(this.errorHandler));
   }
 

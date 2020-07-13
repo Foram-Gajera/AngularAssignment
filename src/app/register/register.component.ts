@@ -75,6 +75,10 @@ export class RegisterComponent implements OnInit {
     });
   }
 
+  clearData(){
+    this.registrationForm.reset();
+  }
+
   onSubmit(){
     console.log(this.registrationForm.value);
     console.log(this.registrationForm.valid);

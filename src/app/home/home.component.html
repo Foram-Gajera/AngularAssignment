@@ -1,3 +1,20 @@
 <div class="home_page">
-    Angular Assignment
+    <p class="title">
+      Angular Assignment
+    </p>
+
+    <div class="row text-center">
+      <div class="col d-flex justify-content-center">
+        <div class="card m-5" style="width:18rem" m-auto *ngIf="userDetails">
+          <ul class="list-group">
+            <li class="list-group-item"><strong>Username : </strong>{{userDetails.userName}}</li>
+            <li class="list-group-item"><strong>Email : </strong>{{userDetails.email}}</li>
+            <li class="list-group-item"><button class="btn btn-primary" (click)="logout()">logout</button></li>
+          </ul>
+        </div>
+      </div>
+ 
+    </div>
+   
  </div>
+

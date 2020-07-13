@@ -23,19 +23,6 @@
                     <small *ngIf="email.errors?.email" class="text-danger">Email is invalid.</small>                    
                 </div>
             </div>
-
-            <!-- <div class="form-group">
-                <label>Phone</label>
-                <button type="button" class="btn btn-secondary btn-sm ml-3" (click)="addAlternetPhone()">Add Phone</button>
-                <input formControlName="phone" type="number" name="phone" placeholder="Contact No."  class="form-control" pattern="/\d{10}/">
-                <div *ngIf="phone.invalid && phone.touched">
-                    <small *ngIf="phone.errors?.required" class="text-danger">Phone No. is required.</small>               
-                </div>
-                <div [formArrayName]="alternetphone" *ngFor="let phone of alternetphone.controls; let i=index">
-                    <input type="number" class="form-control my-1" placeholder="Contact No." [formControlName]="i">
-                </div>
-            </div> -->
-
             <div class="form-group required">
                 <label>Password</label>
                 <input formControlName="password" type="password" name="password" 
@@ -55,39 +42,11 @@
                     <small *ngIf="registrationForm.errors?.misMatch" class="text-danger">Password do not match.</small>
                 </div>
             </div>
-
-            <!-- <div class="form-group">
-                <label>Category</label>
-                <select class="custom-select form-control"  formControlname="category">
-                    <option selected>Select Your Category</option>
-                    <option *ngFor="let category of categories" [ngValue]="category"> {{category}} </option>
-                </select> 
-            </div> -->
-<!-- 
-            <div class="form-group">
-                <label>Working Shift Preference</label>
-                <div class="form-check">
-                    <input formControlName="shift" type="radio" name="shift" class="form-check-input" value="day">
-                    <label class="form-check-label">Day shift</label>
-                </div>
-                <div class="form-check">
-                    <input formControlName="shift" type="radio" name="shift" class="form-check-input" value="night">
-                    <label class="form-check-label">Night shift</label>
-                </div>
-                <div class="text-danger" *ngIf="shift.invalid && shift.touched">
-                  Please select your preference
-                </div>        
-            </div> -->
-
-            <!-- <div class="form-check">
-                <input formControlName="emailUpdates" class="form-check-input" type="checkbox">
-                <label>Send updates on email</label>
-            </div> -->
-
-          
             
-            <button type="submit" [disabled]="registrationForm.invalid" class="btn btn-md btn-primary">Submit</button>
-            <button type="button" class="btn btn-md btn-secondary" (click)="loadApiData()">Load Default Data</button>
+            <button type="submit" [disabled]="registrationForm.invalid" class="btn btn-md btn-primary">Submit</button>&nbsp;
+            <button type="button" class="btn btn-md btn-secondary" (click)="loadApiData()">Load Default Data</button>&nbsp;
+            <button type="button" class="btn btn-md btn-info" (click)="clearData()">Clear Data</button>&nbsp;
+
 
         </form>
     </div>    
